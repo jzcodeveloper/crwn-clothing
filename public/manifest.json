@@ -1,0 +1,12 @@
+{
+  "short_name": "Complete React Developer in 2020",
+  "name": "Complete React Developer in 2020",
+  "description": "Udemy course about React.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "white",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "dir": "ltr",
+  "lang": "en-US"
+}
