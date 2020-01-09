@@ -10,12 +10,12 @@ const Button = styled.button`
   margin: 20px 10px;
   outline: 0;
   cursor: pointer;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
 
   &:hover {
     background-color: white;
     color: ${props => props.color};
-    border: 1px solid ${props => props.color};
+    border: 2px solid ${props => props.color};
   }
 `;
 

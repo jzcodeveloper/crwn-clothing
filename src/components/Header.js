@@ -1,13 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { ReactComponent as Logo } from "../assets/crown.svg";
-
-import { UserContext } from "../store/contexts/userContext";
 import { auth } from "../firebase/utils";
 
+import CartIcon from "./CartIcon";
+import CartDropdown from "./CartDropdown";
+
 const Container = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,7 +19,12 @@ const Container = styled.div`
 `;
 
 const Links = styled.div`
-  & a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & a,
+  & svg {
     margin: 10px;
     padding: 10px;
     font-size: 1.2em;
@@ -34,7 +42,8 @@ const Logout = styled.div`
 `;
 
 const Header = () => {
-  const { user } = useContext(UserContext);
+  const { currentUser } = useSelector(({ user }) => user);
+  const { hidden } = useSelector(({ cart }) => cart);
 
   return (
     <Container>
@@ -44,12 +53,14 @@ const Header = () => {
       <Links>
         <Link to="/shop">Shop</Link>
         <Link to="/contact">Contact</Link>
-        {user ? (
+        {currentUser ? (
           <Logout onClick={() => auth.signOut()}>Sign Out</Logout>
         ) : (
           <Link to="/signin">Sign In</Link>
         )}
+        <CartIcon />
       </Links>
+      {hidden ? null : <CartDropdown />}
     </Container>
   );
 };

@@ -1,17 +1,17 @@
 import * as actions from "../actions/actionTypes";
 
 const initialState = {
-  currentUser: null
+  hidden: true
 };
 
-const userReducer = (state = initialState, action) => {
+const cartReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case actions.SET_USER:
+    case actions.TOGGLE_CART:
       return {
         ...state,
-        currentUser: payload
+        hidden: !state.hidden
       };
 
     default:
@@ -19,4 +19,4 @@ const userReducer = (state = initialState, action) => {
   }
 };
 
-export default userReducer;
+export default cartReducer;

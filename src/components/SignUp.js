@@ -1,11 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import FormInput from "./FormInput";
 import FormButton from "./FormButton";
 
-import { UserContext } from "../store/contexts/userContext";
 import { auth, createUserProfileDocument } from "../firebase/utils";
+import { setCurrentUser } from "../store/actions/userActions";
 
 const Form = styled.form`
   width: 40%;
@@ -32,6 +33,8 @@ const Buttons = styled.div`
 `;
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+
   const [state, setState] = useState({
     name: "",
     email: "",
@@ -40,8 +43,6 @@ const SignUp = () => {
   });
 
   const { name, email, password, confirmPassword } = state;
-
-  const { setCurrentUser } = useContext(UserContext);
 
   const onChange = e => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -59,7 +60,7 @@ const SignUp = () => {
 
         await createUserProfileDocument(user, { displayName: name });
 
-        setCurrentUser(user);
+        dispatch(setCurrentUser(user));
 
         setState({
           name: "",

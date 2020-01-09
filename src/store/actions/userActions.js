@@ -1,12 +1,5 @@
-export const setUser = user => {
-  return {
-    type: "SET_USER",
-    payload: user
-  };
-};
+import { SET_USER } from "./actionTypes";
 
-export const resetUser = () => {
-  return {
-    type: "RESET_USER"
-  };
+export const setCurrentUser = payload => dispatch => {
+  dispatch({ type: SET_USER, payload });
 };

@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import FormButton from "./FormButton";
+
 const Container = styled.div`
   position: relative;
   width: 100%;
@@ -13,6 +15,28 @@ const Container = styled.div`
 
   &:last-child {
     margin-right: 0;
+  }
+
+  & button {
+    display: none;
+    position: absolute;
+    bottom: 50px;
+    left: 12px;
+    width: 80%;
+    background-color: white;
+    opacity: 0.8;
+    font-size: 1.3em;
+    font-weight: bold;
+
+    & button:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+
+  &:hover button {
+    display: block;
+    cursor: pointer;
   }
 `;
 
@@ -43,31 +67,6 @@ const Price = styled.span`
   font-size: 1.4em;
 `;
 
-const Button = styled.button`
-  display: none;
-  position: absolute;
-  bottom: 50px;
-  left: 30px;
-  text-transform: uppercase;
-  padding: 20px;
-  width: 80%;
-  background-color: white;
-  opacity: 0.8;
-  font-size: 1.3em;
-  font-weight: bold;
-  outline: 0;
-
-  ${Container}:hover & {
-    display: block;
-    cursor: pointer;
-  }
-
-  &:hover {
-    background-color: black;
-    color: white;
-  }
-`;
-
 const CollectionItem = ({ id, name, price, imageUrl }) => {
   return (
     <Container>
@@ -76,7 +75,9 @@ const CollectionItem = ({ id, name, price, imageUrl }) => {
         <Name>{name}</Name>
         <Price>${price}</Price>
       </Footer>
-      <Button>Add To Cart</Button>
+      <FormButton type="button" color="#000">
+        Add To Cart
+      </FormButton>
     </Container>
   );
 };

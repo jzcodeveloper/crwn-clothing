@@ -1,6 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-/* import axios from "../store/actions/axios"; */
 
 import FormInput from "./FormInput";
 import FormButton from "./FormButton";

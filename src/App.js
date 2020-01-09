@@ -1,18 +1,20 @@
-import React, { useEffect, useContext } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-/* import axios from "./store/actions/axios"; */
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Switch, Route } from "react-router-dom";
 
-import { UserContext } from "./store/contexts/userContext";
 import { auth, createUserProfileDocument } from "./firebase/utils";
+import { setCurrentUser } from "./store/actions/userActions";
 
 import GlobalStyle from "./components/GlobalStyle";
+import PrivateRoute from "./hoc/PrivateRoute";
+import PublicRoute from "./hoc/PublicRoute";
 import Header from "./components/Header";
 import Home from "./containers/Home";
 import Shop from "./containers/Shop";
 import Auth from "./containers/Auth";
 
 const App = () => {
-  const { setCurrentUser } = useContext(UserContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
@@ -20,10 +22,10 @@ const App = () => {
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapshot => {
-          setCurrentUser({ id: snapshot.id, ...snapshot.data() });
+          dispatch(setCurrentUser({ id: snapshot.id, ...snapshot.data() }));
         });
       } else {
-        setCurrentUser(userAuth);
+        dispatch(setCurrentUser(userAuth));
       }
     });
 
@@ -33,14 +35,12 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Router>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/shop" component={Shop} />
-          <Route exact path="/signin" component={Auth} />
-        </Switch>
-      </Router>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <PrivateRoute exact path="/shop" component={Shop} />
+        <PublicRoute exact path="/signin" component={Auth} />
+      </Switch>
     </>
   );
 };
