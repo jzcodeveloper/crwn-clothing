@@ -1,8 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import { selectCartItems } from "../store/selectors/cartSelectors";
+import { toggleCart } from "../store/actions/cartActions";
 
 import FormButton from "./FormButton";
 import CartItem from "./CartItem";
@@ -32,17 +34,34 @@ const CartItems = styled.div`
   height: 300px;
 `;
 
+const EmptyMessage = styled.span`
+  display: flex;
+  height: 100%;
+  align-items: center;
+  text-align: center;
+  font-size: 1.3em;
+`;
+
 const CartDropdown = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const cartItems = useSelector(selectCartItems);
+
+  const onClick = e => {
+    dispatch(toggleCart());
+    history.push("/checkout");
+  };
 
   return (
     <Container>
       <CartItems>
-        {cartItems.map(item => (
-          <CartItem key={item.id} item={item} />
-        ))}
+        {cartItems.length ? (
+          cartItems.map(item => <CartItem key={item.id} item={item} />)
+        ) : (
+          <EmptyMessage>Your cart is empty</EmptyMessage>
+        )}
       </CartItems>
-      <FormButton type="button" color="#000000" onClick={() => {}}>
+      <FormButton type="button" color="#000000" onClick={onClick}>
         Go To Checkout
       </FormButton>
     </Container>

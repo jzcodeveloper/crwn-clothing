@@ -12,6 +12,7 @@ import Header from "./components/Header";
 import Home from "./containers/Home";
 import Shop from "./containers/Shop";
 import Auth from "./containers/Auth";
+import Checkout from "./containers/Checkout";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const App = () => {
         <Route exact path="/" component={Home} />
         <PublicRoute exact path="/shop" component={Shop} />
         <PublicRoute exact path="/signin" component={Auth} />
+        <PublicRoute exact path="/checkout" component={Checkout} />
       </Switch>
     </>
   );
