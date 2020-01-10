@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 const Button = styled.button`
   text-transform: uppercase;
-  background-color: ${props => props.color};
+  background-color: ${props => props.color1};
   font-size: 1.1em;
-  color: white;
+  color: ${props => props.color2};
   padding: 15px;
   margin: 20px 10px;
   outline: 0;
@@ -13,15 +13,19 @@ const Button = styled.button`
   border: 2px solid transparent;
 
   &:hover {
-    background-color: white;
-    color: ${props => props.color};
-    border: 2px solid ${props => props.color};
+    background-color: ${props => props.color2};
+    color: ${props => props.color1};
+    border: 2px solid ${props => props.color1};
   }
 `;
 
 const FormButton = ({ children, ...otherProps }) => {
   return (
-    <Button color={otherProps.color} {...otherProps}>
+    <Button
+      color1={otherProps.color1 || "#000000"}
+      color2={otherProps.color2 || "#ffffff"}
+      {...otherProps}
+    >
       {children}
     </Button>
   );

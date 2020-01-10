@@ -1,7 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
+import { selectCartItems } from "../store/selectors/cartSelectors";
+
 import FormButton from "./FormButton";
+import CartItem from "./CartItem";
 
 const Container = styled.div`
   display: flex;
@@ -24,13 +28,20 @@ const Container = styled.div`
 `;
 
 const CartItems = styled.div`
+  overflow-y: auto;
   height: 300px;
 `;
 
 const CartDropdown = () => {
+  const cartItems = useSelector(selectCartItems);
+
   return (
     <Container>
-      <CartItems></CartItems>
+      <CartItems>
+        {cartItems.map(item => (
+          <CartItem key={item.id} item={item} />
+        ))}
+      </CartItems>
       <FormButton type="button" color="#000000" onClick={() => {}}>
         Go To Checkout
       </FormButton>

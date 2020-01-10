@@ -1,5 +1,8 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+
+import { addItemToCart } from "../store/actions/cartActions";
 
 import FormButton from "./FormButton";
 
@@ -15,28 +18,6 @@ const Container = styled.div`
 
   &:last-child {
     margin-right: 0;
-  }
-
-  & button {
-    display: none;
-    position: absolute;
-    bottom: 50px;
-    left: 12px;
-    width: 80%;
-    background-color: white;
-    opacity: 0.8;
-    font-size: 1.3em;
-    font-weight: bold;
-
-    & button:hover {
-      background-color: black;
-      color: white;
-    }
-  }
-
-  &:hover button {
-    display: block;
-    cursor: pointer;
   }
 `;
 
@@ -67,7 +48,32 @@ const Price = styled.span`
   font-size: 1.4em;
 `;
 
-const CollectionItem = ({ id, name, price, imageUrl }) => {
+const Buttons = styled.div`
+  display: flex;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  bottom: 25px;
+
+  & button:first-child {
+    display: none;
+    width: 100%;
+    margin: 20px;
+    opacity: 0.8;
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+
+  ${Container}:hover & button:first-child {
+    display: block;
+  }
+`;
+
+const CollectionItem = ({ item }) => {
+  const { name, price, imageUrl } = item;
+
+  const dispatch = useDispatch();
+
   return (
     <Container>
       <BackgroundImage imageUrl={imageUrl} />
@@ -75,9 +81,16 @@ const CollectionItem = ({ id, name, price, imageUrl }) => {
         <Name>{name}</Name>
         <Price>${price}</Price>
       </Footer>
-      <FormButton type="button" color="#000">
-        Add To Cart
-      </FormButton>
+      <Buttons>
+        <FormButton
+          type="button"
+          color1="#ffffff"
+          color2="#000000"
+          onClick={() => dispatch(addItemToCart(item))}
+        >
+          Add To Cart
+        </FormButton>
+      </Buttons>
     </Container>
   );
 };

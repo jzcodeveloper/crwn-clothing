@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 import { ReactComponent as Logo } from "../assets/crown.svg";
 import { auth } from "../firebase/utils";
+import { selectCurrentUser } from "../store/selectors/userSelectors";
+import { selectCartHidden } from "../store/selectors/cartSelectors";
 
 import CartIcon from "./CartIcon";
 import CartDropdown from "./CartDropdown";
@@ -42,8 +44,8 @@ const Logout = styled.div`
 `;
 
 const Header = () => {
-  const { currentUser } = useSelector(({ user }) => user);
-  const { hidden } = useSelector(({ cart }) => cart);
+  const currentUser = useSelector(selectCurrentUser);
+  const hidden = useSelector(selectCartHidden);
 
   return (
     <Container>

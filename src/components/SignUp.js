@@ -110,7 +110,9 @@ const SignUp = () => {
         required
       />
       <Buttons>
-        <FormButton color="black">Sign Up</FormButton>
+        <FormButton color1="#000000" color2="#ffffff">
+          Sign Up
+        </FormButton>
       </Buttons>
     </Form>
   );

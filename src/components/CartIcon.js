@@ -1,9 +1,10 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import { ReactComponent as Icon } from "../assets/cart-icon.svg";
 import { toggleCart } from "../store/actions/cartActions";
+import { selectCartItemsQuantity } from "../store/selectors/cartSelectors";
 
 const Container = styled.div`
   display: inline;
@@ -14,7 +15,7 @@ const Container = styled.div`
   }
 `;
 
-const Count = styled.span`
+const Quantity = styled.span`
   position: absolute;
   font-size: 0.9em;
   display: flex;
@@ -31,10 +32,12 @@ const Count = styled.span`
 const CartIcon = () => {
   const dispatch = useDispatch();
 
+  const quantity = useSelector(selectCartItemsQuantity);
+
   return (
     <Container>
       <Icon onClick={() => dispatch(toggleCart())} />
-      <Count>0</Count>
+      <Quantity>{quantity}</Quantity>
     </Container>
   );
 };

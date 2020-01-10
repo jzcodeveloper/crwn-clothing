@@ -77,10 +77,15 @@ const SignIn = () => {
         required
       ></FormInput>
       <Buttons>
-        <FormButton type="submit" color="#000000">
+        <FormButton type="submit" color1="#000000" color2="#ffffff">
           Sign In
         </FormButton>
-        <FormButton type="button" color="#428bca" onClick={signInWithGoogle}>
+        <FormButton
+          type="button"
+          color1="#428bca"
+          color2="#ffffff"
+          onClick={signInWithGoogle}
+        >
           Sign In With Google
         </FormButton>
       </Buttons>

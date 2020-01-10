@@ -38,7 +38,7 @@ const App = () => {
       <Header />
       <Switch>
         <Route exact path="/" component={Home} />
-        <PrivateRoute exact path="/shop" component={Shop} />
+        <PublicRoute exact path="/shop" component={Shop} />
         <PublicRoute exact path="/signin" component={Auth} />
       </Switch>
     </>
