@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 import { ReactComponent as Logo } from "../assets/crown.svg";
 import { auth } from "../firebase/utils";
-import { selectCurrentUser } from "../store/selectors/userSelectors";
-import { selectCartHidden } from "../store/selectors/cartSelectors";
+import { selectCurrentUser } from "../store/user/userSelectors";
+import { selectCartHidden } from "../store/cart/cartSelectors";
 
 import CartIcon from "./CartIcon";
 import CartDropdown from "./CartDropdown";

@@ -13,8 +13,9 @@ const Title = styled.h1`
 `;
 
 const Preview = styled.div`
-  width: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 15px;
 `;
 
 const CollectionPreview = ({ title, items }) => {

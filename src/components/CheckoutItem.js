@@ -2,7 +2,11 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-/* import {  } from "../store/actions/cartActions"; */
+import {
+  addItemToCart,
+  removeItemFromCart,
+  clearItemFromCart
+} from "../store/cart/cartActions";
 
 const Container = styled.div`
   display: flex;
@@ -61,24 +65,24 @@ const CheckoutItem = ({ item }) => {
 
   const dispatch = useDispatch();
 
-  const decrementQuantity = e => {};
-
-  const incrementQuantity = e => {};
-
-  const removeItem = e => {};
-
   return (
     <Container>
       <Image src={imageUrl} />
       <Name>{name}</Name>
       <Quantity>
-        <Decrement onClick={decrementQuantity}>&#10094;</Decrement>
+        <Decrement onClick={() => dispatch(removeItemFromCart(item))}>
+          &#10094;
+        </Decrement>
         {quantity}
-        <Increment onClick={incrementQuantity}>&#10095;</Increment>
+        <Increment onClick={() => dispatch(addItemToCart(item))}>
+          &#10095;
+        </Increment>
       </Quantity>
       <Price>${price}</Price>
       <Remove>
-        <RemoveIcon onClick={removeItem}>&#10005;</RemoveIcon>
+        <RemoveIcon onClick={() => dispatch(clearItemFromCart(item))}>
+          &#10005;
+        </RemoveIcon>
       </Remove>
     </Container>
   );

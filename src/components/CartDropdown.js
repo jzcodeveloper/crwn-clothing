@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import { selectCartItems } from "../store/selectors/cartSelectors";
-import { toggleCart } from "../store/actions/cartActions";
+import { selectCartItems } from "../store/cart/cartSelectors";
+import { toggleCart } from "../store/cart/cartActions";
 
 import FormButton from "./FormButton";
 import CartItem from "./CartItem";

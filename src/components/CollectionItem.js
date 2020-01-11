@@ -2,27 +2,19 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import { addItemToCart } from "../store/actions/cartActions";
+import { addItemToCart } from "../store/cart/cartActions";
 
 import FormButton from "./FormButton";
 
 const Container = styled.div`
   position: relative;
   width: 100%;
-  margin: 10px;
   height: 400px;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  &:last-child {
-    margin-right: 0;
-  }
+  margin-bottom: 20px;
 `;
 
 const BackgroundImage = styled.div`
-  height: 95%;
+  height: calc(95% - 10px);
   background-image: url(${props => props.imageUrl});
   background-position: center;
   background-size: cover;

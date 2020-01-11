@@ -6,7 +6,7 @@ import FormInput from "./FormInput";
 import FormButton from "./FormButton";
 
 import { auth, createUserProfileDocument } from "../firebase/utils";
-import { setCurrentUser } from "../store/actions/userActions";
+import { setCurrentUser } from "../store/user/userActions";
 
 const Form = styled.form`
   width: 40%;

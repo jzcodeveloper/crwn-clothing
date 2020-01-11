@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import { ReactComponent as Icon } from "../assets/cart-icon.svg";
-import { toggleCart } from "../store/actions/cartActions";
-import { selectCartItemsQuantity } from "../store/selectors/cartSelectors";
+import { toggleCart } from "../store/cart/cartActions";
+import { selectCartItemsQuantity } from "../store/cart/cartSelectors";
 
 const Container = styled.div`
   display: inline;

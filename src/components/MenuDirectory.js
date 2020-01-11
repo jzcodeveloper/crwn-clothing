@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import sections from "../data/sections";
+import { selectDirectorySections } from "../store/directory/directorySelectors";
 
 import MenuItem from "../components/MenuItem";
 
@@ -13,11 +14,11 @@ const Container = styled.div`
 `;
 
 const MenuDirectory = () => {
-  const [state] = useState({ sections });
+  const sections = useSelector(selectDirectorySections);
 
   return (
     <Container>
-      {state.sections.map(({ id, ...otherProps }) => (
+      {sections.map(({ id, ...otherProps }) => (
         <MenuItem key={id} {...otherProps}></MenuItem>
       ))}
     </Container>

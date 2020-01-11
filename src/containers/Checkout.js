@@ -2,8 +2,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { selectCartItems } from "../store/selectors/cartSelectors";
-import { selectCartItemsPrice } from "../store/selectors/cartSelectors";
+import {
+  selectCartItems,
+  selectCartItemsPrice
+} from "../store/cart/cartSelectors";
 
 import CheckoutItem from "../components/CheckoutItem";
 

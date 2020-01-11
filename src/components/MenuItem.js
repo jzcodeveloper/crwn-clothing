@@ -65,7 +65,7 @@ const MenuItem = ({ title, imageUrl, size }) => {
   const history = useHistory();
 
   const onClick = e => {
-    history.push(`/${title}`);
+    history.push(`/shop/${title}`);
   };
 
   return (

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 
 import { auth, createUserProfileDocument } from "./firebase/utils";
-import { setCurrentUser } from "./store/actions/userActions";
+import { setCurrentUser } from "./store/user/userActions";
 
 import GlobalStyle from "./components/GlobalStyle";
 import PrivateRoute from "./hoc/PrivateRoute";
@@ -13,6 +13,7 @@ import Home from "./containers/Home";
 import Shop from "./containers/Shop";
 import Auth from "./containers/Auth";
 import Checkout from "./containers/Checkout";
+import Collection from "./containers/Collection";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const App = () => {
         <PublicRoute exact path="/shop" component={Shop} />
         <PublicRoute exact path="/signin" component={Auth} />
         <PublicRoute exact path="/checkout" component={Checkout} />
+        <PublicRoute exact path="/shop/:collection" component={Collection} />
       </Switch>
     </>
   );
