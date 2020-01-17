@@ -8,6 +8,7 @@ import {
 } from "../store/cart/cartSelectors";
 
 import CheckoutItem from "../components/CheckoutItem";
+import StripeButton from "../components/StripeButton";
 
 const Container = styled.div`
   min-width: 700px;
@@ -40,6 +41,13 @@ const Total = styled.div`
   margin: 20px 0;
 `;
 
+const Warning = styled.div`
+  text-align: center;
+  font-size: 1.5em;
+  color: red;
+  margin: 20px auto;
+`;
+
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
   const total = useSelector(selectCartItemsPrice);
@@ -57,6 +65,12 @@ const Checkout = () => {
         <CheckoutItem key={item.id} item={item} />
       ))}
       <Total>Total: ${total}</Total>
+      <Warning>
+        *Please use the following test credit card for payments*
+        <br />
+        4242 4242 4242 4242 - Exp: 01/20 - CVV: 123
+      </Warning>
+      <StripeButton price={total} />
     </Container>
   );
 };

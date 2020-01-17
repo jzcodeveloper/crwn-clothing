@@ -6,8 +6,8 @@ import { auth, createUserProfileDocument } from "./firebase/utils";
 import { setCurrentUser } from "./store/user/userActions";
 
 import GlobalStyle from "./components/GlobalStyle";
-import PrivateRoute from "./hoc/PrivateRoute";
-import PublicRoute from "./hoc/PublicRoute";
+/* import PrivateRoute from "./hoc/PrivateRoute";
+import PublicRoute from "./hoc/PublicRoute"; */
 import Header from "./components/Header";
 import Home from "./containers/Home";
 import Shop from "./containers/Shop";
@@ -40,10 +40,10 @@ const App = () => {
       <Header />
       <Switch>
         <Route exact path="/" component={Home} />
-        <PublicRoute exact path="/shop" component={Shop} />
-        <PublicRoute exact path="/signin" component={Auth} />
-        <PublicRoute exact path="/checkout" component={Checkout} />
-        <PublicRoute exact path="/shop/:collection" component={Collection} />
+        <Route exact path="/shop" component={Shop} />
+        <Route exact path="/signin" component={Auth} />
+        <Route exact path="/checkout" component={Checkout} />
+        <Route exact path="/shop/:collection" component={Collection} />
       </Switch>
     </>
   );
