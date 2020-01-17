@@ -1,13 +1,31 @@
 import * as actions from "./shopTypes";
+import {
+  firestore,
+  convertCollectionsSnapshotToMap
+} from "../../firebase/utils";
 
-export const updateCollectionsStart = () => ({
-  type: actions.UPDATE_COLLECTIONS_START
-});
+export const fetchCollectionsStart = () => async dispatch => {
+  try {
+    dispatch({ type: actions.FETCH_COLLECTIONS_START });
 
-export const updateCollectionsEnd = () => ({
-  type: actions.UPDATE_COLLECTIONS_END
-});
+    const collectionRef = firestore.collection("collections");
 
-export const updateCollections = payload => dispatch => {
-  dispatch({ type: actions.UPDATE_COLLECTIONS, payload });
+    const snapshot = await collectionRef.get();
+
+    const collections = convertCollectionsSnapshotToMap(snapshot);
+
+    dispatch(fetchCollectionsSuccess(collections));
+  } catch ({ message }) {
+    dispatch(fetchCollectionsFailure(message));
+  }
 };
+
+export const fetchCollectionsSuccess = payload => ({
+  type: actions.FETCH_COLLECTIONS_SUCCESS,
+  payload
+});
+
+export const fetchCollectionsFailure = payload => ({
+  type: actions.FETCH_COLLECTIONS_FAILURE,
+  payload
+});

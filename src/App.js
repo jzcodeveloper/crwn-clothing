@@ -13,7 +13,6 @@ import Home from "./containers/Home";
 import Shop from "./containers/Shop";
 import Auth from "./containers/Auth";
 import Checkout from "./containers/Checkout";
-import Collection from "./containers/Collection";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -40,10 +39,9 @@ const App = () => {
       <Header />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/shop" component={Shop} />
         <Route exact path="/signin" component={Auth} />
         <Route exact path="/checkout" component={Checkout} />
-        <Route exact path="/shop/:collection" component={Collection} />
+        <Route path="/shop" component={Shop} />
       </Switch>
     </>
   );
