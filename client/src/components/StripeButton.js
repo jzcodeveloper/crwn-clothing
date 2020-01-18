@@ -1,6 +1,7 @@
 import React from "react";
 import StripeCheckout from "react-stripe-checkout";
 import styled from "styled-components";
+import axios from "../store/axios";
 
 const Container = styled.div`
   text-align: right;
@@ -11,8 +12,17 @@ const StripeButton = ({ price }) => {
   const stripePrice = price * 100;
   const publishableKey = "pk_test_qgGSFrBqmQNBiSlt2z7k0tHT00XrlQymyc";
 
-  const onToken = token => {
-    console.log(token);
+  const onToken = async token => {
+    try {
+      const body = { token, amount: stripePrice };
+
+      const res = await axios.post("/payment", body);
+
+      console.log(res);
+      alert("Payment successful");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

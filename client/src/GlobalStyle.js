@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-import OpenSansCondensedLight from "../assets/fonts/OpenSansCondensed-Light.ttf";
+import OpenSansCondensedLight from "./assets/fonts/OpenSansCondensed-Light.ttf";
 
 const GlobalStyle = createGlobalStyle`
   * {
