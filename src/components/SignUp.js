@@ -5,8 +5,7 @@ import styled from "styled-components";
 import FormInput from "./FormInput";
 import FormButton from "./FormButton";
 
-import { auth, createUserProfileDocument } from "../firebase/utils";
-import { setCurrentUser } from "../store/user/userActions";
+import { signUpStart } from "../store/user/userActions";
 
 const Form = styled.form`
   width: 40%;
@@ -32,15 +31,12 @@ const Buttons = styled.div`
   }
 `;
 
+const initialState = { name: "", email: "", password: "", confirmPassword: "" };
+
 const SignUp = () => {
   const dispatch = useDispatch();
 
-  const [state, setState] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: ""
-  });
+  const [state, setState] = useState(initialState);
 
   const { name, email, password, confirmPassword } = state;
 
@@ -48,29 +44,13 @@ const SignUp = () => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = async e => {
+  const onSubmit = e => {
     e.preventDefault();
 
     if (password === confirmPassword) {
-      try {
-        const { user } = await auth.createUserWithEmailAndPassword(
-          email,
-          password
-        );
+      dispatch(signUpStart({ name, email, password }));
 
-        await createUserProfileDocument(user, { displayName: name });
-
-        dispatch(setCurrentUser(user));
-
-        setState({
-          name: "",
-          email: "",
-          password: "",
-          confirmPassword: ""
-        });
-      } catch (error) {
-        console.log(error);
-      }
+      setState({ ...initialState });
     }
   };
 

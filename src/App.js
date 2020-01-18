@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 
-import { auth, createUserProfileDocument } from "./firebase/utils";
-import { setCurrentUser } from "./store/user/userActions";
+import { checkUserSession } from "./store/user/userActions";
 
 import GlobalStyle from "./components/GlobalStyle";
 /* import PrivateRoute from "./hoc/PrivateRoute";
@@ -18,19 +17,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-
-        userRef.onSnapshot(snapshot => {
-          dispatch(setCurrentUser({ id: snapshot.id, ...snapshot.data() }));
-        });
-      } else {
-        dispatch(setCurrentUser(userAuth));
-      }
-    });
-
-    return () => unsubscribeFromAuth();
+    dispatch(checkUserSession());
   }, []);
 
   return (

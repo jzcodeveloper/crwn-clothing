@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import FormInput from "./FormInput";
 import FormButton from "./FormButton";
 
-import { auth, signInWithGoogle } from "../firebase/utils";
+import { googleSignInStart, emailSignInStart } from "../store/user/userActions";
 
 const Form = styled.form`
   width: 40%;
@@ -35,25 +36,25 @@ const Buttons = styled.div`
   }
 `;
 
+const initialState = { email: "", password: "" };
+
 const SignIn = () => {
-  const [state, setState] = useState({ email: "", password: "" });
+  const [state, setState] = useState(initialState);
 
   const { email, password } = state;
+
+  const dispatch = useDispatch();
 
   const onChange = e => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = async e => {
+  const onSubmit = e => {
     e.preventDefault();
 
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
+    dispatch(emailSignInStart({ email, password }));
 
-      setState({ email: "", password: "" });
-    } catch (error) {
-      console.log(error);
-    }
+    setState({ ...initialState });
   };
 
   return (
@@ -84,7 +85,7 @@ const SignIn = () => {
           type="button"
           color1="#428bca"
           color2="#ffffff"
-          onClick={signInWithGoogle}
+          onClick={() => dispatch(googleSignInStart())}
         >
           Sign In With Google
         </FormButton>

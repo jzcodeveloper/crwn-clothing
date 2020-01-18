@@ -20,7 +20,8 @@ const shopReducer = (state = initialState, action) => {
       return {
         ...state,
         collections: payload,
-        loading: false
+        loading: false,
+        errorMessage: ""
       };
 
     case actions.FETCH_COLLECTIONS_FAILURE:

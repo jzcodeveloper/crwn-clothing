@@ -1,10 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { ReactComponent as Logo } from "../assets/crown.svg";
-import { auth } from "../firebase/utils";
+import { signOutStart } from "../store/user/userActions";
 import { selectCurrentUser } from "../store/user/userSelectors";
 import { selectCartHidden } from "../store/cart/cartSelectors";
 
@@ -44,6 +44,7 @@ const Logout = styled.div`
 `;
 
 const Header = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const hidden = useSelector(selectCartHidden);
 
@@ -56,7 +57,7 @@ const Header = () => {
         <Link to="/shop">Shop</Link>
         <Link to="/contact">Contact</Link>
         {currentUser ? (
-          <Logout onClick={() => auth.signOut()}>Sign Out</Logout>
+          <Logout onClick={() => dispatch(signOutStart())}>Sign Out</Logout>
         ) : (
           <Link to="/signin">Sign In</Link>
         )}
