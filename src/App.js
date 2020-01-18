@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 
 import { checkUserSession } from "./store/user/userActions";
 
-import GlobalStyle from "./components/GlobalStyle";
+import GlobalStyle from "./GlobalStyle";
 /* import PrivateRoute from "./hoc/PrivateRoute";
 import PublicRoute from "./hoc/PublicRoute"; */
 import Header from "./components/Header";

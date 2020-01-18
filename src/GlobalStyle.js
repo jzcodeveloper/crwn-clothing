@@ -10,10 +10,12 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     font-family: "Open Sans Condensed";
   }
-  a{
+
+  a {
     text-decoration: none;
     color: black;
   }
+
   @font-face {
     font-family: "Open Sans Condensed";
     src: url(${OpenSansCondensedLight});
