@@ -1,16 +1,11 @@
 import * as actions from "./userTypes";
 
-export const setCurrentUser = payload => ({
-  type: actions.SET_CURRENT_USER,
-  payload
-});
-
 export const checkUserSession = () => ({
   type: actions.CHECK_USER_SESSION
 });
 
-export const signOutStart = () => ({
-  type: actions.SIGN_OUT_START
+export const signOutRequest = () => ({
+  type: actions.SIGN_OUT_REQUEST
 });
 
 export const signOutSuccess = () => ({
@@ -22,8 +17,8 @@ export const signOutFailure = payload => ({
   payload
 });
 
-export const signUpStart = payload => ({
-  type: actions.SIGN_UP_START,
+export const signUpRequest = payload => ({
+  type: actions.SIGN_UP_REQUEST,
   payload
 });
 
@@ -37,12 +32,12 @@ export const signUpFailure = payload => ({
   payload
 });
 
-export const googleSignInStart = () => ({
-  type: actions.GOOGLE_SIGN_IN_START
+export const googleSignInRequest = () => ({
+  type: actions.GOOGLE_SIGN_IN_REQUEST
 });
 
-export const emailSignInStart = payload => ({
-  type: actions.EMAIL_SIGN_IN_START,
+export const emailSignInRequest = payload => ({
+  type: actions.EMAIL_SIGN_IN_REQUEST,
   payload
 });
 

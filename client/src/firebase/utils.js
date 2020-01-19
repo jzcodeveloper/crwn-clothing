@@ -59,6 +59,15 @@ export const convertCollectionsSnapshotToMap = collections => {
   }, {});
 };
 
+export const convertCollectionsSnapshot = collections => {
+  const transformedCollection = collections.docs.map(doc => {
+    const { title, imageUrl } = doc.data();
+    return { id: doc.id, title, imageUrl };
+  });
+
+  return transformedCollection;
+};
+
 export const getCurrentUser = () =>
   new Promise((resolve, reject) => {
     const unsubscribe = auth.onAuthStateChanged(user => {

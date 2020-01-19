@@ -10,7 +10,7 @@ const shopReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case actions.FETCH_COLLECTIONS_START:
+    case actions.FETCH_COLLECTIONS_REQUEST:
       return {
         ...state,
         loading: true
@@ -27,8 +27,9 @@ const shopReducer = (state = initialState, action) => {
     case actions.FETCH_COLLECTIONS_FAILURE:
       return {
         ...state,
-        errorMessage: payload,
-        loading: false
+        collections: null,
+        loading: false,
+        errorMessage: payload
       };
 
     default:

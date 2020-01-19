@@ -1,4 +1,4 @@
-import { all, fork, takeLatest, put } from "redux-saga/effects";
+import { all, call, fork, takeLatest, put } from "redux-saga/effects";
 
 import * as actions from "./userTypes";
 
@@ -19,11 +19,13 @@ import {
   createUserProfileDocument
 } from "../../firebase/utils";
 
+/* SUBROUTINES */
+
 function* getSnapshotFromUser(user) {
   try {
-    const userRef = yield createUserProfileDocument(user);
+    const userRef = yield call(createUserProfileDocument, user);
 
-    const snapshot = yield userRef.get();
+    const snapshot = yield call(userRef, userRef.get);
 
     yield put(signInSuccess({ id: snapshot.id, ...snapshot.data() }));
   } catch ({ message }) {
@@ -33,9 +35,9 @@ function* getSnapshotFromUser(user) {
 
 function* signInWithGoogle() {
   try {
-    const { user } = yield auth.signInWithPopup(googleProvider);
+    const { user } = yield call([auth, auth.signInWithPopup], googleProvider);
 
-    yield getSnapshotFromUser(user);
+    yield fork(getSnapshotFromUser, user);
   } catch ({ message }) {
     yield put(signInFailure(message));
   }
@@ -45,9 +47,13 @@ function* signInWithEmail({ payload }) {
   try {
     const { email, password } = payload;
 
-    const { user } = yield auth.signInWithEmailAndPassword(email, password);
+    const { user } = yield call(
+      [auth, auth.signInWithEmailAndPassword],
+      email,
+      password
+    );
 
-    yield getSnapshotFromUser(user);
+    yield fork(getSnapshotFromUser, user);
   } catch ({ message }) {
     yield put(signInFailure(message));
   }
@@ -55,11 +61,11 @@ function* signInWithEmail({ payload }) {
 
 function* checkUserSession() {
   try {
-    const user = yield getCurrentUser();
+    const user = yield call(getCurrentUser);
 
     if (!user) return;
 
-    yield getSnapshotFromUser(user);
+    yield fork(getSnapshotFromUser, user);
   } catch ({ message }) {
     yield put(signInFailure(message));
   }
@@ -67,7 +73,7 @@ function* checkUserSession() {
 
 function* signOut() {
   try {
-    yield auth.signOut();
+    yield call([auth, auth.signOut]);
 
     yield put(signOutSuccess());
     yield put(clearCart());
@@ -80,11 +86,15 @@ function* signUp({ payload }) {
   try {
     const { name, email, password } = payload;
 
-    const { user } = yield auth.createUserWithEmailAndPassword(email, password);
+    const { user } = yield call(
+      [auth, auth.createUserWithEmailAndPassword],
+      email,
+      password
+    );
 
-    yield createUserProfileDocument(user, { displayName: name });
+    yield call(createUserProfileDocument, user, { displayName: name });
 
-    yield getSnapshotFromUser(user);
+    yield fork(getSnapshotFromUser, user);
   } catch ({ message }) {
     yield put(signUpFailure(message));
   }
@@ -93,11 +103,11 @@ function* signUp({ payload }) {
 /* WATCHERS */
 
 function* watchGoogleSignInStart() {
-  yield takeLatest(actions.GOOGLE_SIGN_IN_START, signInWithGoogle);
+  yield takeLatest(actions.GOOGLE_SIGN_IN_REQUEST, signInWithGoogle);
 }
 
 function* watchEmailSignInStart() {
-  yield takeLatest(actions.EMAIL_SIGN_IN_START, signInWithEmail);
+  yield takeLatest(actions.EMAIL_SIGN_IN_REQUEST, signInWithEmail);
 }
 
 function* watchcheckUserSession() {
@@ -105,11 +115,11 @@ function* watchcheckUserSession() {
 }
 
 function* watchSignOutStart() {
-  yield takeLatest(actions.SIGN_OUT_START, signOut);
+  yield takeLatest(actions.SIGN_OUT_REQUEST, signOut);
 }
 
 function* watchSignUpStart() {
-  yield takeLatest(actions.SIGN_UP_START, signUp);
+  yield takeLatest(actions.SIGN_UP_REQUEST, signUp);
 }
 
 export default function* userSaga() {

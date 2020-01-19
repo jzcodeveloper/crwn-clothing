@@ -7,7 +7,7 @@ import CollectionOverview from "../components/CollectionOverview";
 import Collection from "./Collection";
 import Spinner from "../components/Spinner";
 
-import { fetchCollectionsStart } from "../store/shop/shopActions";
+import { fetchCollectionsRequest } from "../store/shop/shopActions";
 import { selectShopLoading } from "../store/shop/shopSelectors";
 
 const Container = styled.div``;
@@ -18,11 +18,7 @@ const Shop = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCollectionsStart());
-    dispatch(fetchCollectionsStart());
-    dispatch(fetchCollectionsStart());
-    dispatch(fetchCollectionsStart());
-    dispatch(fetchCollectionsStart());
+    dispatch(fetchCollectionsRequest());
   }, []);
 
   return (

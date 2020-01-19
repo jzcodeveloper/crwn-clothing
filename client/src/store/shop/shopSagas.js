@@ -1,4 +1,4 @@
-import { all, call, fork, take, takeLatest, put } from "redux-saga/effects";
+import { all, call, fork, takeLatest, put, select } from "redux-saga/effects";
 
 import * as actions from "./shopTypes";
 
@@ -6,6 +6,8 @@ import {
   fetchCollectionsSuccess,
   fetchCollectionsFailure
 } from "./shopActions";
+
+import { selectShopCollections } from "./shopSelectors";
 
 import {
   firestore,
@@ -16,14 +18,17 @@ import {
 
 function* fetchCollections() {
   try {
+    let collections = yield select(selectShopCollections);
+
+    if (collections) return yield put(fetchCollectionsSuccess(collections));
+
     const collectionRef = firestore.collection("collections");
-    console.log("1");
-    const snapshot = yield collectionRef.get();
-    console.log("2");
-    const collections = yield call(convertCollectionsSnapshotToMap, snapshot);
-    console.log("3");
+
+    const snapshot = yield call([collectionRef, collectionRef.get]);
+
+    collections = yield call(convertCollectionsSnapshotToMap, snapshot);
+
     yield put(fetchCollectionsSuccess(collections));
-    console.log("4");
   } catch ({ message }) {
     yield put(fetchCollectionsFailure(message));
   }
@@ -32,12 +37,7 @@ function* fetchCollections() {
 /* WATCHERS */
 
 function* watchFetchCollectionsStart() {
-  /*  yield takeLatest(actions.FETCH_COLLECTIONS_START, fetchCollections); */
-  while (true) {
-    const action = yield take(actions.FETCH_COLLECTIONS_START);
-
-    yield fork(fetchCollections);
-  }
+  yield takeLatest(actions.FETCH_COLLECTIONS_REQUEST, fetchCollections);
 }
 
 export default function* shopSaga() {

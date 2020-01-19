@@ -5,7 +5,10 @@ import styled from "styled-components";
 import FormInput from "./FormInput";
 import FormButton from "./FormButton";
 
-import { googleSignInStart, emailSignInStart } from "../store/user/userActions";
+import {
+  googleSignInRequest,
+  emailSignInRequest
+} from "../store/user/userActions";
 
 const Form = styled.form`
   width: 40%;
@@ -52,7 +55,7 @@ const SignIn = () => {
   const onSubmit = e => {
     e.preventDefault();
 
-    dispatch(emailSignInStart({ email, password }));
+    dispatch(emailSignInRequest({ email, password }));
 
     setState({ ...initialState });
   };
@@ -85,7 +88,7 @@ const SignIn = () => {
           type="button"
           color1="#428bca"
           color2="#ffffff"
-          onClick={() => dispatch(googleSignInStart())}
+          onClick={() => dispatch(googleSignInRequest())}
         >
           Sign In With Google
         </FormButton>

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { ReactComponent as Logo } from "../assets/crown.svg";
-import { signOutStart } from "../store/user/userActions";
+import { signOutRequest } from "../store/user/userActions";
 import { selectCurrentUser } from "../store/user/userSelectors";
 import { selectCartHidden } from "../store/cart/cartSelectors";
 
@@ -57,7 +57,7 @@ const Header = () => {
         <Link to="/shop">Shop</Link>
         <Link to="/contact">Contact</Link>
         {currentUser ? (
-          <Logout onClick={() => dispatch(signOutStart())}>Sign Out</Logout>
+          <Logout onClick={() => dispatch(signOutRequest())}>Sign Out</Logout>
         ) : (
           <Link to="/signin">Sign In</Link>
         )}

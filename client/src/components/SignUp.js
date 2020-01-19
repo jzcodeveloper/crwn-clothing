@@ -5,7 +5,7 @@ import styled from "styled-components";
 import FormInput from "./FormInput";
 import FormButton from "./FormButton";
 
-import { signUpStart } from "../store/user/userActions";
+import { signUpRequest } from "../store/user/userActions";
 
 const Form = styled.form`
   width: 40%;
@@ -48,7 +48,7 @@ const SignUp = () => {
     e.preventDefault();
 
     if (password === confirmPassword) {
-      dispatch(signUpStart({ name, email, password }));
+      dispatch(signUpRequest({ name, email, password }));
 
       setState({ ...initialState });
     }
