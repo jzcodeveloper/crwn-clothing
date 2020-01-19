@@ -25,7 +25,7 @@ function* getSnapshotFromUser(user) {
   try {
     const userRef = yield call(createUserProfileDocument, user);
 
-    const snapshot = yield call(userRef, userRef.get);
+    const snapshot = yield call([userRef, userRef.get]);
 
     yield put(signInSuccess({ id: snapshot.id, ...snapshot.data() }));
   } catch ({ message }) {
