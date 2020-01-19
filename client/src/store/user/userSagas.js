@@ -1,4 +1,4 @@
-import { takeLatest, put } from "redux-saga/effects";
+import { all, fork, takeLatest, put } from "redux-saga/effects";
 
 import * as actions from "./userTypes";
 
@@ -7,7 +7,6 @@ import {
   signInFailure,
   signOutSuccess,
   signOutFailure,
-  signUpSuccess,
   signUpFailure
 } from "./userActions";
 
@@ -20,7 +19,7 @@ import {
   createUserProfileDocument
 } from "../../firebase/utils";
 
-export function* getSnapshotFromUser(user) {
+function* getSnapshotFromUser(user) {
   try {
     const userRef = yield createUserProfileDocument(user);
 
@@ -32,7 +31,7 @@ export function* getSnapshotFromUser(user) {
   }
 }
 
-export function* signInWithGoogle() {
+function* signInWithGoogle() {
   try {
     const { user } = yield auth.signInWithPopup(googleProvider);
 
@@ -42,7 +41,7 @@ export function* signInWithGoogle() {
   }
 }
 
-export function* signInWithEmail({ payload }) {
+function* signInWithEmail({ payload }) {
   try {
     const { email, password } = payload;
 
@@ -54,7 +53,7 @@ export function* signInWithEmail({ payload }) {
   }
 }
 
-export function* checkUserSession() {
+function* checkUserSession() {
   try {
     const user = yield getCurrentUser();
 
@@ -66,7 +65,7 @@ export function* checkUserSession() {
   }
 }
 
-export function* signOut() {
+function* signOut() {
   try {
     yield auth.signOut();
 
@@ -77,7 +76,7 @@ export function* signOut() {
   }
 }
 
-export function* signUp({ payload }) {
+function* signUp({ payload }) {
   try {
     const { name, email, password } = payload;
 
@@ -91,10 +90,34 @@ export function* signUp({ payload }) {
   }
 }
 
-export function* userSaga() {
+/* WATCHERS */
+
+function* watchGoogleSignInStart() {
   yield takeLatest(actions.GOOGLE_SIGN_IN_START, signInWithGoogle);
+}
+
+function* watchEmailSignInStart() {
   yield takeLatest(actions.EMAIL_SIGN_IN_START, signInWithEmail);
+}
+
+function* watchcheckUserSession() {
   yield takeLatest(actions.CHECK_USER_SESSION, checkUserSession);
+}
+
+function* watchSignOutStart() {
   yield takeLatest(actions.SIGN_OUT_START, signOut);
+}
+
+function* watchSignUpStart() {
   yield takeLatest(actions.SIGN_UP_START, signUp);
+}
+
+export default function* userSaga() {
+  yield all([
+    fork(watchGoogleSignInStart),
+    fork(watchEmailSignInStart),
+    fork(watchcheckUserSession),
+    fork(watchSignOutStart),
+    fork(watchSignUpStart)
+  ]);
 }

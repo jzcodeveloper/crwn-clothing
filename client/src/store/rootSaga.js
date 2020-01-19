@@ -1,8 +1,8 @@
-import { all, call } from "redux-saga/effects";
+import { all, fork } from "redux-saga/effects";
 
-import { shopSaga } from "./shop/shopSagas";
-import { userSaga } from "./user/userSagas";
+import shopSaga from "./shop/shopSagas";
+import userSaga from "./user/userSagas";
 
 export default function* rootSaga() {
-  yield all([call(shopSaga), call(userSaga)]);
+  yield all([fork(shopSaga), fork(userSaga)]);
 }

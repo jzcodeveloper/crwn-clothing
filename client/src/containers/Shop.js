@@ -19,6 +19,10 @@ const Shop = () => {
 
   useEffect(() => {
     dispatch(fetchCollectionsStart());
+    dispatch(fetchCollectionsStart());
+    dispatch(fetchCollectionsStart());
+    dispatch(fetchCollectionsStart());
+    dispatch(fetchCollectionsStart());
   }, []);
 
   return (

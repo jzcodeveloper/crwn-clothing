@@ -19,7 +19,7 @@ const Container = styled.div`
   border-bottom: 5px solid #ddd;
   border-right: 5px solid ${props => props.color};
   background-color: transparent;
-  animation: spin 1.5s ease infinite;
+  animation: spin 1s ease infinite;
 
   @keyframes spin {
     0% {
