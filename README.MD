@@ -1,17 +1,15 @@
-# JZ Data Register
+# Crwn Clothing
 
 # Description:
 
-Web application that stores student's enrollment information in order to automate manual hand-written enrollment, made for a primary school.
+Full code version of Yihua Zhang's crwn clothing. Built using React Hooks, Redux Saga and Stripe.
 
 # This application uses the following technologies:
 
-- MongoDB (Database)
-- ExpressJS (Back-end Framework)
 - ReactJS (Front-end Framework)
-- NodeJS (Back-end Environment)
 - Redux (State management)
 - Workbox (Offline Support)
+- Stripe (Payments)
 
 # This application offers the following features:
 
