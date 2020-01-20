@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const dotenv = require("dotenv");
+const compression = require("compression");
 
 // Load env vars
 dotenv.config({ path: "./config/config.env" });
@@ -14,6 +15,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Enable CORS
 app.use(cors());
+
+// Compresses payload
+app.use(compression());
 
 // Use routes
 app.use("/api", require("./routes"));
