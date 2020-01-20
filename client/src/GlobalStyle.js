@@ -11,6 +11,14 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Open Sans Condensed";
   }
 
+  body{
+    padding: 10px;
+
+    @media screen and (min-width: 800px) {
+      padding: 20px 40px;  
+    }
+  }
+
   a {
     text-decoration: none;
     color: black;

@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 import styled from "styled-components";
+import { deepEqual } from "../utils/utils";
 
 import { addItemToCart } from "../store/cart/cartActions";
 
@@ -20,8 +22,10 @@ const BackgroundImage = styled.div`
   background-size: cover;
   margin-bottom: 10px;
 
-  ${Container}:hover & {
-    opacity: 0.7;
+  @media screen and (min-width: 800px) {
+    ${Container}:hover & {
+      opacity: 0.7;
+    }
   }
 `;
 
@@ -47,8 +51,8 @@ const Buttons = styled.div`
   width: 100%;
   bottom: 25px;
 
-  & button:first-child {
-    display: none;
+  & button {
+    display: block;
     width: 100%;
     margin: 20px;
     opacity: 0.8;
@@ -56,8 +60,14 @@ const Buttons = styled.div`
     font-weight: bold;
   }
 
-  ${Container}:hover & button:first-child {
+  ${Container}:hover & button {
     display: block;
+  }
+
+  @media screen and (min-width: 800px) {
+    & button {
+      display: none;
+    }
   }
 `;
 
@@ -87,4 +97,16 @@ const CollectionItem = ({ item }) => {
   );
 };
 
-export default CollectionItem;
+CollectionItem.propTypes = {
+  item: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    imageUrl: PropTypes.string.isRequired
+  })
+};
+
+const areEqual = (prevProps, nextProps) => {
+  return deepEqual(prevProps.item, nextProps.item);
+};
+
+export default React.memo(CollectionItem, areEqual);

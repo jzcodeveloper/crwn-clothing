@@ -1,6 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 import styled from "styled-components";
+import { deepEqual } from "../utils/utils";
 
 const Container = styled.div`
   position: relative;
@@ -9,12 +11,16 @@ const Container = styled.div`
   justify-content: center;
   flex: 1 1 auto;
   min-width: 30%;
-  margin: 10px;
-  height: ${props => (props.size === "large" ? "380px" : "250px")};
+  margin: 5px;
+  height: 200px;
   overflow: hidden;
 
   &:hover {
     cursor: pointer;
+  }
+
+  @media screen and (min-width: 800px) {
+    height: ${props => (props.size === "large" ? "380px" : "250px")};
   }
 `;
 
@@ -61,7 +67,9 @@ const Subtitle = styled.span`
   text-transform: uppercase;
 `;
 
-const MenuItem = ({ title, imageUrl, size }) => {
+const MenuItem = ({ section }) => {
+  const { title, imageUrl, size } = section;
+
   const history = useHistory();
 
   const onClick = e => {
@@ -79,4 +87,16 @@ const MenuItem = ({ title, imageUrl, size }) => {
   );
 };
 
-export default MenuItem;
+MenuItem.propTypes = {
+  section: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
+    size: PropTypes.string
+  })
+};
+
+const areEqual = (prevProps, nextProps) => {
+  return deepEqual(prevProps.section, nextProps.section);
+};
+
+export default React.memo(MenuItem, areEqual);

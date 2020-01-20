@@ -5,11 +5,15 @@ import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 
 const Container = styled.div`
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
-  padding: 20px 40px;
   display: flex;
+  flex-flow: column;
   justify-content: space-around;
+
+  @media screen and (min-width: 800px) {
+    flex-flow: row;
+  }
 `;
 
 const Auth = () => {

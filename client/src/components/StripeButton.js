@@ -1,5 +1,6 @@
 import React from "react";
 import StripeCheckout from "react-stripe-checkout";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import axios from "../store/axios";
 
@@ -42,4 +43,9 @@ const StripeButton = ({ price }) => {
     </Container>
   );
 };
+
+StripeButton.propTypes = {
+  price: PropTypes.number.isRequired
+};
+
 export default StripeButton;

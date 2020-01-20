@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const PrivateRoute = ({ component: Component, props, ...rest }) => {
+const PublicRoute = ({ component: Component, props, ...rest }) => {
   const { currentUser } = useSelector(({ user }) => user);
 
   return (
@@ -19,4 +19,4 @@ const PrivateRoute = ({ component: Component, props, ...rest }) => {
   );
 };
 
-export default PrivateRoute;
+export default PublicRoute;

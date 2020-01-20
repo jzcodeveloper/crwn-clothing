@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -40,6 +41,11 @@ const FormInput = ({ onChange, label, ...otherProps }) => {
       <Label className={otherProps.value.length ? "shrink" : ""}>{label}</Label>
     </Container>
   );
+};
+
+FormInput.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired
 };
 
 export default FormInput;

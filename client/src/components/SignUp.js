@@ -8,9 +8,13 @@ import FormButton from "./FormButton";
 import { signUpRequest } from "../store/user/userActions";
 
 const Form = styled.form`
-  width: 40%;
+  width: 100%;
   display: flex;
   flex-flow: column;
+
+  @media screen and (min-width: 800px) {
+    width: 40%;
+  }
 `;
 
 const Title = styled.h1`

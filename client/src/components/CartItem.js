@@ -1,5 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
+import { deepEqual } from "../utils/utils";
 
 const Container = styled.div`
   display: flex;
@@ -47,4 +49,17 @@ const CartItem = ({ item }) => {
   );
 };
 
-export default CartItem;
+CartItem.propTypes = {
+  item: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    imageUrl: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired
+  })
+};
+
+const areEqual = (prevProps, nextProps) => {
+  return deepEqual(prevProps.item, nextProps.item);
+};
+
+export default React.memo(CartItem, areEqual);

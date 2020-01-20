@@ -1,5 +1,5 @@
 export const addItemToCart = (cart, item) => {
-  const cartItems = [...cart];
+  const cartItems = cart.map(item => ({ ...item }));
 
   const index = cartItems.findIndex(i => i.id === item.id);
 
@@ -13,7 +13,7 @@ export const addItemToCart = (cart, item) => {
 };
 
 export const removeItemFromCart = (cart, item) => {
-  const cartItems = [...cart];
+  const cartItems = cart.map(item => ({ ...item }));
 
   const index = cartItems.findIndex(i => i.id === item.id);
 

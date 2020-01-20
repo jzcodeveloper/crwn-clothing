@@ -10,7 +10,6 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  padding: 20px 40px;
 `;
 
 const MenuDirectory = () => {
@@ -18,8 +17,8 @@ const MenuDirectory = () => {
 
   return (
     <Container>
-      {sections.map(({ id, ...otherProps }) => (
-        <MenuItem key={id} {...otherProps}></MenuItem>
+      {sections.map(section => (
+        <MenuItem key={section.id} section={section}></MenuItem>
       ))}
     </Container>
   );

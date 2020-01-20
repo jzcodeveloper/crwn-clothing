@@ -11,9 +11,15 @@ import {
 } from "../store/user/userActions";
 
 const Form = styled.form`
-  width: 40%;
+  width: 100%;
   display: flex;
   flex-flow: column;
+  margin-bottom: 50px;
+
+  @media screen and (min-width: 800px) {
+    width: 40%;
+    margin-bottom: 0;
+  }
 `;
 
 const Title = styled.h1`

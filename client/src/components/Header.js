@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { ReactComponent as Logo } from "../assets/crown.svg";
+import { ReactComponent as LogoSVG } from "../assets/crown.svg";
 import { signOutRequest } from "../store/user/userActions";
 import { selectCurrentUser } from "../store/user/userSelectors";
 import { selectCartHidden } from "../store/cart/cartSelectors";
@@ -16,8 +16,12 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 40px 40px 20px 60px;
+  padding: 20px 0px 20px 10px;
   width: 100%;
+
+  @media screen and (min-width: 800px) {
+    padding: 20px 0 20px 20px;
+  }
 `;
 
 const Links = styled.div`
@@ -27,10 +31,26 @@ const Links = styled.div`
 
   & a,
   & svg {
-    margin: 10px;
+    margin: 0;
     padding: 10px;
-    font-size: 1.2em;
+    font-size: 1em;
     text-transform: uppercase;
+  }
+
+  @media screen and (min-width: 800px) {
+    a,
+    svg {
+      font-size: 1.2em;
+      margin: 10px;
+    }
+  }
+`;
+
+const Logo = styled(LogoSVG)`
+  width: 35px;
+
+  @media screen and (min-width: 800px) {
+    width: 50px;
   }
 `;
 
